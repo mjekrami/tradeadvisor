@@ -29,7 +29,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 
-def create_probability_assistance_agent():
+def create_technical_assistance_agent():
     tools = [populate_indicator, fetch_crypto_price]
     agent = create_tool_calling_agent(akash_llm, tools, prompt)
     return agent

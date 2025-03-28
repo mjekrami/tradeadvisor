@@ -1,2 +1,4 @@
 from .market_sentiment import create_market_sentiment_agent
 from .probability_assistance import create_probability_assistance_agent
+from .technical_analyst import create_technical_assistance_agent
+from .trading_strategist import create_trading_strategist_agent
