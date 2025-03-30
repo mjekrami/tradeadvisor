@@ -1,31 +1,27 @@
 import os
-import logging
 import yaml
 
-logger = logging.getLogger(__name__)
 
-if os.path.exists("config.yaml"):
-    config_file = "config.yaml"
-else:
-    config_file = "config.yml"
+class Config:
+    def __init__(self):
+        config = self._load_config()
+        self.llm_config = config.get("llms")
+        self.agent_config = config.get("agents")
+        self.tool_config = config.get("tools")
 
-with open(config_file) as stream:
-    try:
-        config = yaml.safe_load(stream)
-    except yaml.YAMLError as error:
-        logger.error(error)
+    def _load_config(self):
+        if os.path.exists("config.yaml"):
+            file_path = "config.yaml"
+        else:
+            file_path = "config.yml"
+
+        with open(file_path) as stream:
+            try:
+                config = yaml.safe_load(stream)
+            except yaml.YAMLError as e:
+                print(f"Error occured: {str(e)}")
+                return
+        return config
 
 
-def get_llm_config(llm, key):
-    if llm is not None:
-        return config["llms"][llm][key]
-    return config["llms"][llm]
-
-
-def is_enabled(key):
-    return config[key]["enabled"]
-
-
-def get_tools_config(tool, key):
-    if tool is not None:
-        return config["tools"][tool][key]
+CONFIG = Config()

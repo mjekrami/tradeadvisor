@@ -76,7 +76,7 @@ search:
   # remove format to deny access, use lower case.
   # formats: [html, csv, json, rss]
   formats:
-    - html
+    - json
 
 server:
   # Is overwritten by ${SEARXNG_PORT} and ${SEARXNG_BIND_ADDRESS}
@@ -2245,6 +2245,3 @@ doi_resolvers:
   sci-hub.ru: 'https://sci-hub.ru/'
 
 default_doi_resolver: 'oadoi.org'
-formats:
-  - json
-

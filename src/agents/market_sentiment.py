@@ -1,4 +1,3 @@
-from llms import akash_llm
 from tools import search_news, search_web
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.agents import create_tool_calling_agent
@@ -18,7 +17,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 
-def create_market_sentiment_agent():
+def create_market_sentiment_agent(llm):
     tools = [search_news, search_web]
-    agent = create_tool_calling_agent(akash_llm, tools, prompt)
+    agent = create_tool_calling_agent(llm, tools, prompt)
     return agent

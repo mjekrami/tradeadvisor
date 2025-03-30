@@ -1,15 +1,20 @@
-from config import config
+from langchain_openai import ChatOpenAI
+from langchain.llms.base import LLM
 from langchain_openai import ChatOpenAI
 
-api_key = config.get_llm_config("akash", "akash_key")
-temperature = config.get_llm_config("akash", "model_temperature")
-base_url = config.get_llm_config("akash", "akash_base_url")
-model = config.get_llm_config("akash", "akash_model")
 
+class AkashLLM(ChatOpenAI):
+    def __init__(self, *args, **kwargs):
+        super(AkashLLM, self).__init__(*args, **kwargs)
 
-akash_llm = ChatOpenAI(
-    temperature=0 if not temperature else temperature,
-    api_key=api_key,
-    base_url=base_url,
-    model=model,
-)
+    def __call__(self, prompt, stop=None):
+        return f"AkashLLM Response to: {prompt}"
+
+    @property
+    def _identify_params(self):
+        return {
+            "api_key": self.openai_api_key,
+            "base_url": self.openai_api_base,
+            "model": self.model_name,
+            "temperature": self.temperature,
+        }

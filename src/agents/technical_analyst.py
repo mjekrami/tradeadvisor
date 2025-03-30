@@ -1,4 +1,3 @@
-from llms import akash_llm
 from tools import populate_indicator, fetch_crypto_price
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.agents import create_tool_calling_agent
@@ -29,7 +28,7 @@ prompt = ChatPromptTemplate.from_messages(
 )
 
 
-def create_technical_assistance_agent():
+def create_technical_assistance_agent(llm):
     tools = [populate_indicator, fetch_crypto_price]
-    agent = create_tool_calling_agent(akash_llm, tools, prompt)
+    agent = create_tool_calling_agent(llm, tools, prompt)
     return agent
