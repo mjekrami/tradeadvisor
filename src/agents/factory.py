@@ -6,7 +6,7 @@ from .probability_assistance import create_probability_assistance_agent
 
 def get_agent(agent_name, llm):
     if agent_name == "market_sentiment":
-        return create_market_sentiment_agent(llm)
+        return create_market_sentiment_agent(llm=llm)
     elif agent_name == "probability_assistance":
         return create_probability_assistance_agent(llm)
     elif agent_name == "trading_strategist":

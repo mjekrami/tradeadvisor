@@ -15,16 +15,21 @@ llms:
 agents:
   market_sentiment:
     llm: "akash"
+    uses:
+      - search_web
+      - search_news
   probability_assistance:
-    llm: "ollama"
+    llm: "akash"
   technical_analyst:
     llm: "akash"
-  trading_startegist:
+  trading_strategist:
     llm: "akash"
 
-tools:
-  searxng:
-    host: "http://localhost:8080"
-  firecrawl:
-    api_key: "test_key"
-    url: "http://localhost:9090"
+# tools:
+#   searxng:
+#     host: "http://localhost:8080"
+#   firecrawl:
+#     api_key: "test_key"
+#     url: "http://localhost:9090"
+#   alpha_vantage:
+#     api_key: ""

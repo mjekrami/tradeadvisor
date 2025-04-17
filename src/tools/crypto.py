@@ -23,7 +23,7 @@ def fetch_crypto_price(symbol: str, exchange_name: str, since, limit=10):
 
 
 @tool("indicator_populator")
-def populate_indicator(df: pd.DataFrame):
+def populate_indicator(df: str):
     """Populates indicator (eg. SMA,EMA) for further analysis"""
     df["sma_20"] = df["close"].rolling(20).mean()
     df["sma_50"] = df["close"].rolling(50).mean()

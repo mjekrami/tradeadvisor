@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 
 class AkashLLM(ChatOpenAI):
     def __init__(self, *args, **kwargs):
-        super(AkashLLM, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def __call__(self, prompt, stop=None):
         return f"AkashLLM Response to: {prompt}"

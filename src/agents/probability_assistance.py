@@ -19,5 +19,5 @@ prompt = ChatPromptTemplate.from_messages(
 
 def create_probability_assistance_agent(llm):
     tools = [populate_indicator, fetch_crypto_price]
-    agent = create_tool_calling_agent(tools, prompt)
+    agent = create_tool_calling_agent(llm, tools, prompt)
     return agent

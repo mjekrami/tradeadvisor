@@ -1,11 +1,7 @@
-import os
-from langchain_community.document_loaders.firecrawl import FireCrawlLoader
+from crawl4ai.async_dispatcher
 from langchain.tools import tool
 
 
-# api_key = get_tools_config("firecrawl", "api_key")
-# url = get_tools_config("firecrawl", "url")
-# loader = FireCrawlLoader(api_key=api_key, url=url, mode="scrape")
 
 
 @tool("scrape_website")

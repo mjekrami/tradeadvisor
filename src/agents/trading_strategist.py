@@ -29,5 +29,5 @@ prompt = ChatPromptTemplate.from_messages(
 
 def create_trading_strategist_agent(llm):
     tools = []
-    agent = create_tool_calling_agent(tools, prompt)
+    agent = create_tool_calling_agent(llm, tools, prompt)
     return agent

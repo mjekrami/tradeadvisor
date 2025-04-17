@@ -1,15 +1,8 @@
-from langchain.agents import AgentExecutor
-from config import CONFIG
-from tools import search_news
-from llms import get_llm
-from agents import get_agent
+from langchain_core.messages import HumanMessage
+from graph import graph
 
-market_sentiment_config = CONFIG.agent_config["market_sentiment"]
+if __name__ == "__main__":
+    final_result = graph.invoke({"messages": [HumanMessage(content="btc")]})
 
-llm = get_llm(market_sentiment_config["llm"])
-market_sentiment = get_agent("market_sentiment", llm)
-
-agent_executor = AgentExecutor(agent=market_sentiment, tools=[search_news])
-
-output = agent_executor.invoke({"input": "btc"})
-print(output)
+    last_message = final_result["messages"]
+    print(last_message)
