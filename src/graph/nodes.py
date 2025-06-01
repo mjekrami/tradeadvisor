@@ -110,34 +110,33 @@ def run_trading_strategist(state: AgentState):
     agent_name = "Trading Strategist"
     try:
         print(f"Running {agent_name} agent with state: {state['messages'][-1]}")
-        # The Trading Strategist agent expects the output from Probability Assistance
-        # under the key 'probability_analysis'.
+        # The Trading Strategist agent expects 'asset' and 'probability_analysis'.
+        # 'agent_scratchpad' is used by the agent framework.
         invoke_input = {
+            "asset": state["asset"], # Get asset from graph state
             "probability_analysis": state["messages"][-1].content,
-            "intermediate_steps": []
+            "intermediate_steps": [] # Or "agent_scratchpad": [] depending on agent type
         }
-        # It might also need the full message history or other specific inputs.
-        # For now, let's provide 'input' as well, in case its prompt uses it generally,
-        # and 'probability_analysis' for the specific part of its prompt.
-        # If the agent only needs 'probability_analysis', 'input' could be removed.
-        invoke_input["input"] = state["messages"][-1].content
-
         result = trading_strategist.invoke(invoke_input)
 
+        # With the simplified agent (prompt | llm), the result should be an AIMessage
+        # and its 'content' attribute should directly be the JSON string from the LLM.
         actual_payload = result[0] if isinstance(result, list) and len(result) > 0 else result
 
+        json_string = ""
         if hasattr(actual_payload, 'content'):
-            message_content = actual_payload.content
-        elif isinstance(actual_payload, dict):
-            message_content = actual_payload.get("output", "")
+            json_string = actual_payload.content
+        elif isinstance(actual_payload, str): # If the payload itself is the string
+            json_string = actual_payload
         else:
-            message_content = str(actual_payload) # Fallback
+            # Fallback if the structure is not as expected
+            json_string = str(actual_payload)
 
-        if not isinstance(message_content, str):
-            message_content = str(message_content) # Ensure it's a string
+        if not isinstance(json_string, str):
+            json_string = str(json_string) # Ensure it's a string for safety
 
-        print(f"{agent_name} -> result: {message_content}")
-        return {"messages": [HumanMessage(content=message_content)]}
+        print(f"{agent_name} -> result (expected JSON string): {json_string}")
+        return {"messages": [HumanMessage(content=json_string)]}
     except Exception as e:
         error_message = f"Error in {agent_name} agent: {e}. Input: {state['messages'][-1].content if state['messages'] else 'empty'}"
         print(error_message)

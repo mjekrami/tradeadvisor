@@ -12,3 +12,4 @@ def merge_dicts(a: dict[str, any], b: dict[str, any]) -> dict[str, any]:
 
 class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
+    asset: str
