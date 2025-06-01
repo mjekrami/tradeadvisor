@@ -1,4 +1,4 @@
-from crawl4ai.async_dispatcher
+from crawl4ai.async_dispatcher import MemoryAdaptiveDispatcher
 from langchain.tools import tool
 
 
